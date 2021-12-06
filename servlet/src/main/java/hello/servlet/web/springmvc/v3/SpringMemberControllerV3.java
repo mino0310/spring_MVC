@@ -18,7 +18,6 @@ public class SpringMemberControllerV3 {
     public String newForm() {
         return "new-form";
     }
-    git
     @PostMapping("/save")
     public String save(Model model) {
 
