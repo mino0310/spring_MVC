@@ -11,16 +11,17 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Item {
 
+    @NotNull // 수정 요구사항 추가
     private Long id;
 
-    @NotBlank(message = "공백X")
+    @NotBlank
     private String itemName;
 
     @NotNull
     @Range(min = 1000, max = 1000000)
     private Integer price;
 
-    @Max(9999)
+//    @Max(9999) // 수정 요구사항 추가
     @NotNull
     private Integer quantity;
 
