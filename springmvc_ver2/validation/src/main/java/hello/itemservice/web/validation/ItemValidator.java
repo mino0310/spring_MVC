@@ -4,6 +4,7 @@ import hello.itemservice.domain.item.Item;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
@@ -16,6 +17,8 @@ public class ItemValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Item item = (Item) target;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ItemName", "required");
 
         // 검증 로직
         if (!StringUtils.hasText(item.getItemName())) {
