@@ -45,7 +45,9 @@ public class LoginController {
 
         // 쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료 시 모두 종료)
         Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
+        Cookie check = new Cookie("memberId", "hi");
         response.addCookie(idCookie);
+        response.addCookie(check);
 
 
         return "redirect:/";
