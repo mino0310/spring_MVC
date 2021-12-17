@@ -2,17 +2,27 @@ package hello.login.web;
 
 import hello.login.web.filter.LogFilter;
 import hello.login.web.filter.LoginCheckFilter;
+import hello.login.web.interceptor.LogInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
 
 @Configuration
-public class webConfig {
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LogInterceptor())
+                .order(1)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/css/**", "/*.ico", "/error");
+    }
 
     // 스프링 부트가 자기가 WAS를 들고 띄우기 때문에 이렇게 해두면 WAS를 띄울 때 필터를 넣어준다.
-    @Bean
+//    @Bean
     public FilterRegistrationBean logFilter() {
         FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
         filterFilterRegistrationBean.setFilter(new LogFilter());
@@ -21,7 +31,6 @@ public class webConfig {
 
         return filterFilterRegistrationBean;
     }
-
     @Bean
     public FilterRegistrationBean logCheckFilter() {
         FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
@@ -33,4 +42,6 @@ public class webConfig {
 
         return filterFilterRegistrationBean;
     }
+
+
 }
