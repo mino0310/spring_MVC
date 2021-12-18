@@ -13,7 +13,6 @@ import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 
 @Component
-@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
